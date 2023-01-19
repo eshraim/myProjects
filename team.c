@@ -1,5 +1,5 @@
 //
-// EECS2031 team.c
+//  team.c
 //
 // Program for maintaining a personal team.
 //
@@ -7,7 +7,7 @@
 // Uses a linked list to hold the team players.
 //
 // Author: <Eyad Mahmoud>
-// Student Info: <218421230>
+
 
 
 #include <stdio.h>
@@ -24,7 +24,6 @@
 //  here for use throughout the file.
 //
 //
-//   ADD STATEMENT(S) HERE
 struct Node {
     char firstName[1023];
     char lastName[1023];
@@ -57,7 +56,7 @@ struct Node* nodeFactory( char *first, char *last, char pos, int val, struct Nod
 // Functions that modify the linked list.
 //   Declare your linked list functions here.
 //
-//   ADD STATEMENT(S) HERE
+//  linked list operations
 void searchByLast(char lastName[], struct Node *head);
 bool checkerForLastName(struct Node *new, struct Node *head);
 
@@ -101,12 +100,12 @@ int main (void)
         = "Commands are I (insert), D (delete), S (search by name),\n"
           "  V (search by value), P (print), Q (quit).\n";
 
-    // Declare linked list head. done
-    //   ADD STATEMENT(S) HERE TO DECLARE LINKED LIST HEAD. done
+    // Declared linked list head.
+    //  
     struct Node *head;
     //head = (struct Node*)malloc(sizeof(node)); 
  
-    // announce start of program
+    // announces start of program
     printf("%s",bannerString);
     printf("%s",commandList);
     
@@ -334,14 +333,14 @@ int main (void)
                 printNoPlayersWithLowerValue(val);
             }
 
-            //   ADD STATEMENT(S) HERE
+            
 
         }
         else if (response == 'P')
         {
-            // Print the team.
+            // Prints the team.
 
-            //   ADD STATEMENT(S) HERE
+      
             struct Node *iter;
             iter = head;
             if(head == NULL){
@@ -371,8 +370,8 @@ int main (void)
         }
     } while(response != 'Q');
   
-    // Delete the whole linked list that hold the team.
-    //   ADD STATEMENT(S) HERE
+    // Deletes the whole linked list that hold the team.
+    //   
         struct Node *curr;
         curr = head;
         while(curr!=NULL){
@@ -383,8 +382,8 @@ int main (void)
            
         }
 
-    // Print the linked list to confirm deletion.
-    //   ADD STATEMENT(S) HERE
+    // Prints the linked list to confirm deletion.
+    //  
         struct Node *iter;
         if (head == NULL){
         }
