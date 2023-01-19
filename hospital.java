@@ -1,8 +1,7 @@
-package pe2;
+package hospital;
 
 import java.util.*;
 
-//do java doc!
 public class Hospital {
 	protected Director director; // can have 1 Director.
 	protected Administrator admin;
