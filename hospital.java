@@ -1,5 +1,5 @@
 package hospital;
-
+//Hospital backend project
 import java.util.*;
 
 public class Hospital {
@@ -9,11 +9,12 @@ public class Hospital {
 	protected Volunteer volunteer;
 	protected Patient patient;
 	protected PhysicianAdministrator physicianAdmin;
-	protected ArrayList<PhysicianAdministrator> hospitalAdminList;
-	protected ArrayList<Physician> hospitalPhysicianList;
-	protected ArrayList<Patient> hospitalPatientList;
-	protected ArrayList<Volunteer> hospitalVolunteerList;
+	protected ArrayList<PhysicianAdministrator> hospitalAdminList; //hospital admin list containing the physicians admins
+	protected ArrayList<Physician> hospitalPhysicianList; // list of each physician in the hospital
+	protected ArrayList<Patient> hospitalPatientList; // list of all patients in the hospital
+	protected ArrayList<Volunteer> hospitalVolunteerList; // list of all volunteers in the hospital
 
+	//constructor for Hospital
 	public Hospital(Director director) {
 		this.director = director;
 		this.hospitalAdminList = new ArrayList<>();
@@ -23,10 +24,13 @@ public class Hospital {
 
 	}
 
+	//returns Director of the hospital
 	protected Director getHospDirector() {
 		return this.director;
 	}
 
+	// adds admin to hospital
+	// each hospital can have 3 admins
 	protected boolean addAdministrator(PhysicianAdministrator p) {
 		if (hospitalAdminList.size() < 3)
 			return hospitalAdminList.add(p);
@@ -34,6 +38,9 @@ public class Hospital {
 			return false;
 	}
 
+	// hires physician to hospital
+	// each hospital can have 70 physicians
+	// each physician can have up to 8 patients
 	protected boolean hirePhysician(Physician p) {
 		if (hospitalPhysicianList.size() < 70 && !(hospitalPhysicianList.contains(p))) {
 			for (int i = 0; i < hospitalAdminList.size(); i++) {
@@ -46,6 +53,9 @@ public class Hospital {
 			return false;
 	}
 
+	// adds patient to hospital
+	// hospital can have upto 8 patients per physician in the hospital
+	// max number of patients is 500
 	protected boolean admitPatient(Patient p) throws NoSpaceException {
 		if (hospitalPatientList.size() < (hospitalPhysicianList.size() * 8) && !(hospitalPatientList.contains(p))) {
 			hospitalPatientList.add(p);
@@ -68,10 +78,13 @@ public class Hospital {
 
 	}
 
+	//returns all physicians details
 	protected ArrayList<Physician> extractAllPhysicianDetails() {
 		return hospitalPhysicianList;
 	}
 
+	// removes physisican from hospital while un assigning volunteers and patients from him
+	// and deleting the records.
 	protected boolean resignPhysician(Physician p) throws NoSpecialtyException {
 		if (hospitalPhysicianList.contains(p)) {
 			for (int i = 0; i < p.physicianPatientList.size(); i++)
@@ -90,10 +103,12 @@ public class Hospital {
 			throw new NoSpecialtyException("");
 	}
 
+	// returns all patients details.
 	protected ArrayList<Patient> extractAllPatientDetails() {
 		return hospitalPatientList;
 	}
 
+	// removes patient from hospital and clears records.
 	protected boolean dischargePatient(Patient p) {
 		if (hospitalPatientList.contains(p)) {
 			for (int i = 0; i < hospitalPhysicianList.size(); i++) {
@@ -107,7 +122,8 @@ public class Hospital {
 		} else
 			return false;
 	}
-
+	
+	// helper function for re-assigning patients once physician leaves.
 	private boolean reAdmitPateint(Patient p) {
 		if (hospitalPatientList.size() < (hospitalPhysicianList.size() * 8) && hospitalPatientList.contains(p)) {
 			for (int i = 0; i < hospitalPhysicianList.size(); i++) {
@@ -121,6 +137,7 @@ public class Hospital {
 			return false;
 	}
 
+	// helper function for re-assigning volunteer once physician leaves.
 	private boolean reHireVolunteer(Volunteer v) {
 		if (hospitalVolunteerList.size() < (hospitalPhysicianList.size() * 5) && hospitalVolunteerList.contains(v)) {
 			for (int i = 0; i < hospitalPhysicianList.size(); i++) {
@@ -134,6 +151,7 @@ public class Hospital {
 			return false;
 	}
 
+	// hires volunteer to hospital and assigns them to physicians in a "first come, first serve" style.
 	protected boolean hireVolunteer(Volunteer v) {
 		if (hospitalVolunteerList.size() < (hospitalPhysicianList.size() * 5) && !(hospitalVolunteerList.contains(v))) {
 			hospitalVolunteerList.add(v);
@@ -153,6 +171,7 @@ public class Hospital {
 
 	}
 
+	// resigns volunteer
 	protected boolean resignVolunteer(Volunteer v) throws NoVolunteersException {
 		if (hospitalVolunteerList.contains(v)) {
 			for (int i = 0; i < hospitalPhysicianList.size(); i++) {
@@ -168,7 +187,8 @@ public class Hospital {
 		} else
 			throw new NoVolunteersException("");
 	}
-
+	
+	//returns all volunteers details
 	public ArrayList<Volunteer> extractAllVolunteerDetails() {
 		return hospitalVolunteerList;
 	}
